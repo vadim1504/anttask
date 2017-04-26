@@ -1,0 +1,31 @@
+<project basedir="." default="main">
+    <property name="in.dir" location="resources"/>
+    <property name="temp.dir" location="temp"/>
+    <property name="task.build" value="task/build.xml"/>
+    <property name="task.dir" value="task"/>
+    <property name="artifact-task-zip" value="../target/ant-task-1.0-SNAPSHOT.zip"/>
+
+    <target name="unzip-artifact-task">
+        <unzip dest="${task.dir}" src="${artifact-task-zip}"/>
+    </target>
+
+    <target name="unzip">
+        <unzip dest="${temp.dir}" overwrite="true">
+            <fileset dir="${in.dir}">
+                <include name="**/*.zip"/>
+            </fileset>
+            <patternset>
+                <include name="**/*.xml"/>
+                <include name="**/*.html"/>
+                <include name="**/*.xhtml"/>
+                <include name="**/*.png"/>
+            </patternset>
+            <mapper type="flatten"/>
+        </unzip>
+    </target>
+
+    <target name="main" depends="unzip, unzip-artifact-task">
+        <ant antfile="${task.build}"/>
+    </target>
+
+</project>

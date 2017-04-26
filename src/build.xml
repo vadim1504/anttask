@@ -1,0 +1,20 @@
+<project basedir="../" default="postfix">
+    <property name="temp.dir" location="temp"/>
+    <property name="postfix.classpath" value="lib-ext/ant-task-1.0-SNAPSHOT.zip"/>
+
+    <condition property="job.id" value="">
+        <not><isset property="job.id"/></not>
+    </condition>
+
+    <target name="postfix">
+        <taskdef name="postfix" classname="RenameFileTask" classpath="${postfix.classpath}" loaderref="ant.coreLoader"/>
+        <postfix location="${temp.dir}" jobid="${job.id}">
+            <fileset dir="${temp.dir}">
+                <include name="**/*.xml"/>
+                <include name="**/*.html"/>
+                <include name="**/*.xhtml"/>
+                <include name="**/*.png"/>
+            </fileset>
+        </postfix>
+    </target>
+</project>
