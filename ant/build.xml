@@ -5,11 +5,11 @@
     <property name="task.dir" value="task"/>
     <property name="artifact-task-zip" value="../target/ant-task-1.0-SNAPSHOT.zip"/>
 
-    <target name="unzip-artifact-task">
+    <target name="unzip-artifact-task" depends="clean">
         <unzip dest="${task.dir}" src="${artifact-task-zip}"/>
     </target>
 
-    <target name="unzip">
+    <target name="unzip" depends="clean">
         <unzip dest="${temp.dir}" overwrite="true">
             <fileset dir="${in.dir}">
                 <include name="**/*.zip"/>
@@ -24,14 +24,14 @@
         </unzip>
     </target>
 
-    <target name="clear">
+    <target name="clean">
         <delete>
             <fileset dir="${temp.dir}"/>
             <fileset dir="${task.dir}"/>
         </delete>
     </target>
 
-    <target name="main" depends="clear, unzip, unzip-artifact-task">
+    <target name="main" depends="unzip, unzip-artifact-task">
         <ant antfile="${task.build}"/>
     </target>
 
