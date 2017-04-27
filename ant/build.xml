@@ -24,7 +24,14 @@
         </unzip>
     </target>
 
-    <target name="main" depends="unzip, unzip-artifact-task">
+    <target name="clear">
+        <delete>
+            <fileset dir="${temp.dir}"/>
+            <fileset dir="${task.dir}"/>
+        </delete>
+    </target>
+
+    <target name="main" depends="clear, unzip, unzip-artifact-task">
         <ant antfile="${task.build}"/>
     </target>
 
